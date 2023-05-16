@@ -13,8 +13,8 @@ public class App implements CommandLineRunner {
     @Autowired
     private CsvFileProcessor csvFileProcessor;
 
-    String source = "/home/dsi/input_file.csv";
-    String destination = "/home/dsi/output_file.csv";
+    String source = System.getenv("INPUT_CSV_PATH");
+    String destination = System.getenv("OUTPUT_CSV_PATH");
 
     public static void main(String[] args) {
 
@@ -26,6 +26,6 @@ public class App implements CommandLineRunner {
     }
 
     @Override public void run(String... args) throws Exception {
-        csvFileProcessor.process(source, destination, 10000);
+        csvFileProcessor.process(source, destination, 5);
     }
 }
