@@ -4,7 +4,6 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -27,7 +26,6 @@ public class CsvFileProcessor {
     private String sourceDir = "/home/dsi/sourceDir";
     private String destinationDir = "/home/dsi/destinationDir";
 
-    @Async
     public void process(String sourceFilePath, String destinationFilePath, int chunkSize) throws IOException {
         try {
             CSVReader reader = new CSVReader(new FileReader(sourceFilePath));
@@ -48,7 +46,7 @@ public class CsvFileProcessor {
 
                 if (photoTypeMapper.containsKey(srcViewType)
                         && checkFileExistenceInSourceAndCopyToDestination(fileName, schoolId)) {
-                    String[] output = new String[4];
+                    String[] output = new String[3];
                     output[0] = schoolId;
                     output[1] = photoTypeMapper.get(srcViewType);
                     output[2] = fileName;
@@ -105,7 +103,6 @@ public class CsvFileProcessor {
         return false;
     }
 
-    @Async
     public void writeChunkAsync(List<String[]> chunk, CSVWriter writer) throws IOException {
         writer.writeAll(chunk);
     }
