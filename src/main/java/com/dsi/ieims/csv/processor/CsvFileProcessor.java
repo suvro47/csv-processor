@@ -27,13 +27,13 @@ public class CsvFileProcessor {
     @Autowired
     private ViewTypeMapper viewTypeMapper;
 
-    private final String sourceDir = System.getenv("SOURCE_DIR_PATH");
-    private final String destinationDir = System.getenv("DESTINATION_DIR_PATH");
+    private final String sourceDir = "/storage/srcdir";  // container dir
+    private final String destinationDir = "/storage/desdir"; // container dir
 
     public void process(String sourceFilePath, String destinationFilePath, int chunkSize) throws IOException {
         try {
-            CSVReader reader = new CSVReader(new FileReader(sourceFilePath));
-            CSVWriter writer = new CSVWriter(new FileWriter(destinationFilePath));
+            CSVReader reader = new CSVReader(new FileReader(sourceFilePath + File.separator + "input_file.csv"));
+            CSVWriter writer = new CSVWriter(new FileWriter(destinationFilePath + File.separator + "output_file.csv"));
 
             StopWatch stopwatch = new StopWatch();
             stopwatch.start();
@@ -49,7 +49,7 @@ public class CsvFileProcessor {
             writer.close();
             stopwatch.stop();
 
-            log.info("Processing time : " + stopwatch.getTime());
+            log.info("Success! Total processing time : " + stopwatch.getTime());
 
         } catch (IOException io) {
             io.printStackTrace();

@@ -13,16 +13,11 @@ public class App implements CommandLineRunner {
     @Autowired
     private CsvFileProcessor csvFileProcessor;
 
-    String source = System.getenv("INPUT_CSV_PATH");
-    String destination = System.getenv("OUTPUT_CSV_PATH");
+    String source = "/storage/inputcsv"; // container path
+    String destination = "/storage/outputcsv"; // container path
 
     public static void main(String[] args) {
-
         SpringApplication.run(App.class, args);
-
-        log.info("**********************************");
-        log.info("CSV processor started successfully");
-        log.info("**********************************");
     }
 
     @Override public void run(String... args) throws Exception {

@@ -1,0 +1,36 @@
+version: '1.0'
+services:
+  csv-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: csv-processor.jar
+    image: dsinnovators/ieims-csv-processor:${VERSION:-latest}
+    ports:
+      - 8104:8080
+      - 8073:8010
+    environment:
+      - INPUT_CSV_PATH=${INPUT_CSV_PATH}
+      - OUTPUT_CSV_PATH=${OUTPUT_CSV_PATH}
+      - SOURCE_DIR_PATH=${SOURCE_DIR_PATH}
+      - DESTINATION_DIR_PATH=${DESTINATION_DIR_PATH}
+    volumes:
+      - type: bind
+        source: ${INPUT_CSV_PATH}
+        target: /storage/inputcsv
+      - type: bind
+        source: ${OUTPUT_CSV_PATH}
+        target: /storage/outputcsv
+      - type: bind
+        source: ${SOURCE_DIR_PATH}
+        target: /storage/srcdir
+      - type: bind
+        source: ${DESTINATION_DIR_PATH}
+        target: /storage/desdir
+    deploy:
+      resources:
+        limits:
+          memory: 300M
+        reservations:
+          memory: 200M
