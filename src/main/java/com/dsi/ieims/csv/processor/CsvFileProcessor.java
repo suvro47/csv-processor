@@ -37,9 +37,6 @@ public class CsvFileProcessor {
             CSVWriter writer = new CSVWriter(new FileWriter(
                     destinationFilePath + File.separator + System.getenv("OUTPUT_CSV_FILE_NAME")));
 
-            StopWatch stopwatch = new StopWatch();
-            stopwatch.start();
-
             Iterator<String[]> iterator = reader.iterator();
             while (iterator.hasNext()) {
                 List<String[]> chunk = getNextNRows(iterator, chunkSize);
@@ -49,9 +46,7 @@ public class CsvFileProcessor {
 
             reader.close();
             writer.close();
-            stopwatch.stop();
-
-            log.info("Success! Total processing time : " + stopwatch.getTime());
+            log.info("CSV Read Write Successfully completed");
 
         } catch (IOException io) {
             io.printStackTrace();

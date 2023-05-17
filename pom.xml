@@ -43,13 +43,7 @@
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
-        </dependency>
-    </dependencies>
+   </dependencies>
 
     <build>
         <finalName>csv-processor</finalName>
