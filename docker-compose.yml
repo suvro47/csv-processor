@@ -11,10 +11,7 @@ services:
       - 8104:8080
       - 8073:8010
     environment:
-      - INPUT_CSV_PATH=${INPUT_CSV_PATH}
-      - OUTPUT_CSV_PATH=${OUTPUT_CSV_PATH}
-      - SOURCE_DIR_PATH=${SOURCE_DIR_PATH}
-      - DESTINATION_DIR_PATH=${DESTINATION_DIR_PATH}
+      - CHUNK_SIZE_INTEND_TO_PROCESS=${CHUNK_SIZE_INTEND_TO_PROCESS}
     volumes:
       - type: bind
         source: ${INPUT_CSV_PATH}
@@ -31,6 +28,6 @@ services:
     deploy:
       resources:
         limits:
-          memory: 300M
+          memory: 800M
         reservations:
-          memory: 200M
+          memory: 300M
