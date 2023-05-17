@@ -12,6 +12,8 @@ services:
       - 8073:8010
     environment:
       - CHUNK_SIZE_INTEND_TO_PROCESS=${CHUNK_SIZE_INTEND_TO_PROCESS}
+      - INPUT_CSV_FILE_NAME=${INPUT_CSV_FILE_NAME}
+      - OUTPUT_CSV_FILE_NAME=${OUTPUT_CSV_FILE_NAME}
     volumes:
       - type: bind
         source: ${INPUT_CSV_PATH}
