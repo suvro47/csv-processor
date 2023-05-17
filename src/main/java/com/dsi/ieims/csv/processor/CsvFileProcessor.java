@@ -29,13 +29,13 @@ public class CsvFileProcessor {
 
     private final String sourceDir = "/storage/srcdir";  // container dir
     private final String destinationDir = "/storage/desdir"; // container dir
-    private final String inputFile = System.getenv("INPUT_CSV_FILE_NAME");
-    private final String outputFile = System.getenv("OUTPUT_CSV_FILE_NAME");
 
     public void process(String sourceFilePath, String destinationFilePath, int chunkSize) throws IOException {
         try {
-            CSVReader reader = new CSVReader(new FileReader(sourceFilePath + File.separator + inputFile));
-            CSVWriter writer = new CSVWriter(new FileWriter(destinationFilePath + File.separator + outputFile));
+            CSVReader reader = new CSVReader(new FileReader(
+                    sourceFilePath + File.separator + System.getenv("INPUT_CSV_FILE_NAME")));
+            CSVWriter writer = new CSVWriter(new FileWriter(
+                    destinationFilePath + File.separator + System.getenv("OUTPUT_CSV_FILE_NAME")));
 
             StopWatch stopwatch = new StopWatch();
             stopwatch.start();
