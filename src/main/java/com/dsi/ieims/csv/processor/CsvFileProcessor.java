@@ -3,7 +3,6 @@ package com.dsi.ieims.csv.processor;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.time.StopWatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +28,7 @@ public class CsvFileProcessor {
 
     private final String sourceDir = "/storage/srcdir";  // container dir
     private final String destinationDir = "/storage/desdir"; // container dir
+    private final String dirToCopy = "/photo-gallery/school"; // target dir on host
 
     public void process(String sourceFilePath, String destinationFilePath, int chunkSize) throws IOException {
         try {
@@ -36,6 +36,9 @@ public class CsvFileProcessor {
                     sourceFilePath + File.separator + System.getenv("INPUT_CSV_FILE_NAME")));
             CSVWriter writer = new CSVWriter(new FileWriter(
                     destinationFilePath + File.separator + System.getenv("OUTPUT_CSV_FILE_NAME")));
+
+            String[] header = { "SCHOOL_ID", "PHOTO_TYPE", "PHOTO_PATH" };
+            writer.writeNext(header);
 
             Iterator<String[]> iterator = reader.iterator();
             while (iterator.hasNext()) {
@@ -93,7 +96,7 @@ public class CsvFileProcessor {
 
                 output[0] = schoolId;
                 output[1] = photoTypeMapper.get(viewType);
-                output[2] = fileName;
+                output[2] = dirToCopy + File.separator + schoolId + File.separator + fileName;
 
                 log.info("Source file copied successfully : " + fileName);
                 return output;
